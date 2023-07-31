@@ -30,6 +30,7 @@
                         <li class="nav-item"><a class="nav-link" href="#services">Jurusan</a></li>
                         <li class="nav-item"><a class="nav-link" href="#portfolio">Galeri</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="panel/login.php">Login</a></li>
                     </ul>
                 </div>
             </div>
