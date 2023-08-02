@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>ryeyeyttytws2</h1>
-</body>
-</html>
+<?php
+session_start();
+if(isset($_SESSION['username'])) {
+// ----------------------------------CONTENT HERE---------------------------------- //
+    echo '<center><h1>Selamat Datang ;)</h1><br/><a href="./logout.php">Logout</a>';
+// ----------------------------------CONTENT HERE---------------------------------- //
+
+} else {
+    echo '<script>window.location.replace("./login.php");</script>';
+}
+?>
