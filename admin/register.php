@@ -1,6 +1,6 @@
 <?php include "header.php "; 
 
-include "koneksi/koneksi.php";
+include "koneksi.php";
 
 if (isset($_POST['regis'])){
   $username = strtolower(stripslashes($_POST['username']));
