@@ -1,4 +1,19 @@
+<?php
+session_start();
+if (!isset($_SESSION['login']) ) {
 
+
+?>
+<script>
+    alert("Login Terlebih Dahulu!!");
+    window.open('login.php', '_self');
+</script>
+
+<?php
+} else {
+    $status = $_SESSION['hak_akses'];
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -80,25 +95,28 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Addons
+                Login/Logout
             </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
+            <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.php">Login</a>
-                        <a class="collapse-item" href="register.php">Register</a>
-                        <div class="collapse-divider"></div>
-                    </div>
-                </div>
+                <a class="nav-link" href="login.php">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Login</span></a>
             </li>
+
+            <?php
+            if ($_SESSION['hak_akses']=='admin') :?>
+            <li class="nav-item">
+                <a class="nav-link" href="register.php">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Register</span></a>
+            </li>
+
+            <!-- heading -->
+            <div class="sidebar-heading">
+                Akses Admin
+            </div>
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
@@ -111,8 +129,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="tables.php">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
+                    <span>Data User</span></a>
             </li>
+            <?php endif;?>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
