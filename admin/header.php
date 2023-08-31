@@ -65,13 +65,16 @@ if (!isset($_SESSION['login']) ) {
                     <span>Home</span></a>
             </li>
 
+            <?php
+            if ($_SESSION['hak_akses']=='admin') :?>
             <!-- Divider -->
             <hr class="sidebar-divider">
-
+           
             <!-- Heading -->
             <div class="sidebar-heading">
                 Interface
             </div>
+
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
@@ -89,50 +92,37 @@ if (!isset($_SESSION['login']) ) {
                     </div>
                 </div>
             </li>
+            <?php endif;?>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Login/Logout
-            </div>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="login.php">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Login</span></a>
-            </li>
-
-            <?php
-            if ($_SESSION['hak_akses']=='admin') :?>
+            <?php if ($_SESSION['hak_akses']=='admin') :?>
             <li class="nav-item">
                 <a class="nav-link" href="register.php">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Register</span></a>
             </li>
+            <?php endif;?>
 
             <!-- heading -->
             <div class="sidebar-heading">
-                Akses Admin
+                Data Pendaftaran & Pendaftaran
             </div>
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link" href="charts.php">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
+                    <span>Pendaftaran</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="tables.php">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Data User</span></a>
+                    <span>Data Pendaftaran</span></a>
             </li>
-            <?php endif;?>
-
+            
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
