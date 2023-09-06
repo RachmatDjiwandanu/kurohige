@@ -31,8 +31,13 @@
                                 <li class="breadcrumb-item active" aria-current="page">Data Pendaftaran</li>
                             </ol>
                         </nav>
-
                         
+                        
+                        <div class="col-2 mb-2">
+                        <a type="submit" href="register.php" name="add_data" class="btn btn-success btn-block" >Tambah Data
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                        </div>
+
                         <table id="example" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
@@ -60,8 +65,10 @@
                                         <td><?= $row['email']; ?></td>
                                         <td><?= $row['hak_akses']; ?></td>
                                         <td>
-                                            <a class="btn btn-warning btn-sm" type="button"><i class="fa-solid fa-pen-to-square"></i></a>
-                                            <a class="btn btn-danger btn-sm" type="button" onclick="return confirm('Data akan di Hapus?')" href="hapus_user.php?id_user=<?= $row['id_user']; ?>"><i class="fa-solid fa-trash"></i></a>
+                                            <a class="btn btn-warning btn-sm" type="button" href="edit_user.php?id_user=<?= $row['id_user']  ?>"><i class="fa-solid fa-pen-to-square"></i></a>
+                                            <a class="btn btn-danger btn-sm" type="button"
+                                             onclick="return confirm('Data akan di Hapus?')" href="hapus_user.php?id_user=<?= $row['id_user']; 
+                                             ?>"><i class="fa-solid fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 <?php

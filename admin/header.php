@@ -106,7 +106,7 @@ if (!isset($_SESSION['login']) ) {
 
             <!-- heading -->
             <div class="sidebar-heading">
-                Data Pendaftaran & Pendaftaran
+                Pendaftaran
             </div>
 
             <!-- Nav Item - Charts -->
@@ -116,9 +116,9 @@ if (!isset($_SESSION['login']) ) {
                     <span>Pendaftaran</span></a>
             </li>
 
-            <!-- Nav Item - Tables -->
+            <!-- Nav Item - Data User -->
             <li class="nav-item">
-                <a class="nav-link" href="tables.php">
+                <a class="nav-link" href="data_user.php">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Data Pendaftaran</span></a>
             </li>
