@@ -2,8 +2,8 @@
 
 include "koneksi.php";
 
-if (isset($_POST['regis'])){
-  $username = strtolower(stripslashes($_POST['username']));
+if (isset($_POST['buat'])){
+  $nama_agama = strtolower(stripslashes($_POST['nama_agama']));
   $password = mysqli_real_escape_string($conn, $_POST['password']);
   $password2 = mysqli_real_escape_string($conn, $_POST['password2']);
   $nama = htmlspecialchars($_POST['nama']);
@@ -11,7 +11,7 @@ if (isset($_POST['regis'])){
   $akses = htmlspecialchars($_POST['akses']);
 
   //cek username
-  $result = mysqli_query($conn, "SELECT username FROM user WHERE username = '$username'");
+  $result = mysqli_query($conn, "SELECT nama_agama FROM agama WHERE nama_agama = '$nama_agama'");
   if(mysqli_fetch_assoc($result)){
       echo "
       <script>
@@ -36,7 +36,7 @@ if (isset($_POST['regis'])){
   $password = password_hash ($password, PASSWORD_DEFAULT);
 
   //simpan data ke database
-  mysqli_query($conn, "INSERT INTO user VALUES ('', '$username', '$password', '$nama', '$email', '$akses')");
+  mysqli_query($conn, "INSERT INTO user VALUES ('', '$nama_agana', '$password', '$nama', '$email', '$akses')");
   if (mysqli_affected_rows($conn)){
       echo"
       <script>
@@ -89,7 +89,7 @@ if (isset($_POST['regis'])){
               <form class="user" method = "post" action = "">
 
                 <div class="form-outline mb-4">
-                  <label class="form-label" for="username">Username</label>
+                  <label class="form-label" for="username">Id Agama</label>
                   <input type="text" name= "username" id="username" class="form-control form-control-lg" />
                 </div>
 
@@ -113,17 +113,32 @@ if (isset($_POST['regis'])){
                   <input type="email" name="email" id="email" class="form-control form-control-lg"/>
                 </div>
 
+                <div class="mb-4">
+                <select name= "akses" class="form-select form-control user" aria-label="Default select example">
+		              <option value=""selected disabled>Pilih Agama</option>
+					        <option value="operator">Islam</option>
+					        <option value="admin">Kristen</option>
+                            <option value="admin">Hindu</option>
+                            <option value="admin">Budha</option>
+              </select>
+              </div>
+
+              
               <div class="mb-4">
                 <select name= "akses" class="form-select form-control user" aria-label="Default select example">
 		              <option value=""selected disabled>Hak Akses</option>
+                          <?php if ($_SESSION['hak_akses']=='operator') :?>
 					        <option value="operator">operator</option>
+                            <?php endif;?>
+                            <?php if ($_SESSION['hak_akses']=='admin') :?>
 					        <option value="admin">admin</option>
+                            <?php endif;?>
               </select>
               </div>
 
             <div class="row mb-3"> 
               <div class="col-6">
-                <button type="submit" name="regis" class="btn btn-success btn-block w-100">Register</button>
+                <button type="submit" name="buat" class="btn btn-success btn-block w-100">Register</button>
               </div>
               <div class="col-6">
                <button type="reset"name="reset" class="btn btn-danger btn-block w-100">Reset</button>
