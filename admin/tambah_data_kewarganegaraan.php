@@ -2,44 +2,45 @@
 
 include "koneksi.php";
 
-if (isset($_POST['buat'])) {
-    $id_negaara = htmlspecialchars($_POST['id_negara']);
-    $nama_negara = htmlspecialchars($_POST['nama_negara']);
-    $tgl_input = htmlspecialchars($_POST['tgl_input']);
-    $user_input = htmlspecialchars($_POST['user_input']);
-    $id_user = htmlspecialchars($_POST['id_user']);
-    
-  //cek id agama
-  $result = mysqli_query($conn, "SELECT id_negara FROM kewarganegaraan WHERE id_negara = '$id_negara'");
+if (isset($_POST['simpan'])) {
+  $id_negara = htmlspecialchars($_POST['id_negara']);
+  $nama_negara = htmlspecialchars($_POST['nama_negara']);
+  $tgl_input = htmlspecialchars($_POST['tgl_input']);
+  $user_input = htmlspecialchars($_POST['user_input']);
+  $id_user = htmlspecialchars($_POST['id_user']);
+
+  //cek id sudah terdaftar belum
+  $result = mysqli_query($conn, "SELECT id_negara FROM Kewarganegaraan WHERE id_negara = '$id_negara'");
   if (mysqli_fetch_assoc($result)) {
       echo "
       <script>
-          alert('Username sudah terdaftar, silahkan ganti!!');
-          document.location.href='tambah_data_kewarganegaraan.php';
-          </script>";
+          alert('ID sudah terdaftar, silahkan ganti!');
+          document.location.href='Kewarganegaraan.php';
+      </script>
+      ";
       return false;
   }
 
+  mysqli_query($conn, "INSERT INTO Kewarganegaraan VALUES('$id_negara','$nama_negara','$tgl_input','$user_input','','','$id_user')");
 
-  //simpan data ke database
-  mysqli_query($conn, "INSERT INTO kewarganegaraan VALUES('$id_negara','$nama_negara','$tgl_input','$user_input','','','$id_user')");
-  
+  // var_dump($cek);
+  // exit();
+
   if (mysqli_affected_rows($conn) > 0) {
-    echo "
-    <script>
-        alert('Data Negara Berhasil dibuat');
-        document.location.href='kewarganegaraan.php';
-    </script>
-    ";
-} else {
-    echo "
-    <script>
-        alert('Data Negara Gagal dibuat');
-        document.location.href='tambah_data_kewarganegaraan.php';
-    </script>
-    ";
-}
-  
+      echo "
+      <script>
+          alert('Data Negara Berhasil dibuat');
+          document.location.href='Kewarganegaraan.php';
+      </script>
+      ";
+  } else {
+      echo "
+      <script>
+          alert('Data Negara Gagal dibuat');
+          document.location.href='form-Kewarganegaraan.php';
+      </script>
+      ";
+  }
 }
 
 ?>
@@ -82,6 +83,11 @@ if (isset($_POST['buat'])) {
 
               <form class="user" method = "post" action = "">
 
+              <div class="form-outline mb-4">
+                  <label class="form-label" for="id_negara">Id Negara</label>
+                  <input type="text" name="id_negara" id="id_negara" class="form-control form-control-lg" required/>
+                </div>
+
                 <div class="form-outline mb-4">
                   <label class="form-label" for="nama_negara">Nama Negara</label>
                   <input type="text" name="nama_negara" id="nama_negara" class="form-control form-control-lg" required/>
@@ -100,7 +106,7 @@ if (isset($_POST['buat'])) {
               
               <div class="mb-4">
                 <select name= "id_user" class="form-select form-control user" aria-label="Default select example">
-		              <option value="Hak Ak/;."selected disabled>Hak Akses</option>
+		              <option value="Hak Akses."selected disabled>Hak Akses</option>
                             <?php
                              $sql = mysqli_query($conn, "SELECT * FROM user WHERE hak_akses = '$status' AND id_user='$_SESSION[id_user];'");
                             while ($data = mysqli_fetch_assoc($sql)) {
@@ -114,7 +120,7 @@ if (isset($_POST['buat'])) {
 
             <div class="row mb-3"> 
               <div class="col-6">
-                <button type="submit" name="buat" class="btn btn-success btn-block w-100">Register</button>
+                <button type="submit" name="simpan" class="btn btn-success btn-block w-100">Register</button>
               </div>
               <div class="col-6">
                <button type="reset"name="reset" class="btn btn-danger btn-block w-100">Reset</button>
