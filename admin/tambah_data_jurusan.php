@@ -3,39 +3,40 @@
 include "koneksi.php";
 
 if (isset($_POST['buat'])) {
-    $id_agama = htmlspecialchars($_POST['id_agama']);
-    $nama_agama = htmlspecialchars($_POST['nama_agama']);
+    $id_jurusan = htmlspecialchars($_POST['id_jurusan']);
+    $nama_jurusan = htmlspecialchars($_POST['nama_jurusan']);
+    $id_jenjang = htmlspecialchars($_POST['id_jenjang']);
     $tgl_input = htmlspecialchars($_POST['tgl_input']);
     $user_input = htmlspecialchars($_POST['user_input']);
     $id_user = htmlspecialchars($_POST['id_user']);
     
   //cek id agama
-  $result = mysqli_query($conn, "SELECT id_agama FROM agama WHERE id_agama = '$id_agama'");
+  $result = mysqli_query($conn, "SELECT id_jurusan FROM jurusan WHERE id_jurusan = '$id_jurusan'");
   if (mysqli_fetch_assoc($result)) {
       echo "
       <script>
           alert('Username sudah terdaftar, silahkan ganti!!');
-          document.location.href='tambah_data_agama.php';
+          document.location.href='tambah_data_jurusan.php';
           </script>";
       return false;
   }
 
 
   //simpan data ke database
-  mysqli_query($conn, "INSERT INTO agama VALUES('$id_agama','$nama_agama','$tgl_input','$user_input','','','$id_user')");
+  mysqli_query($conn, "INSERT INTO jurusan VALUES('$id_jurusan','$nama_jurusan','$id_jenjang','$tgl_input','$user_input','','','$id_user')");
   
   if (mysqli_affected_rows($conn) > 0) {
     echo "
     <script>
         alert('Data Agama Berhasil dibuat');
-        document.location.href='agama.php';
+        document.location.href='jurusan.php';
     </script>
     ";
 } else {
     echo "
     <script>
         alert('Data Agama Gagal dibuat');
-        document.location.href='tambah_data_agama.php';
+        document.location.href='tambah_data_jurusan.php';
     </script>
     ";
 }
@@ -83,18 +84,33 @@ if (isset($_POST['buat'])) {
               <form class="user" method = "post" action = "">
 
                 <div class="form-outline mb-4">
-                  <label class="form-label" for="id_agama">Id Agama</label>
-                  <input type="text" name= "id_agama" id="id_agama" class="form-control form-control-lg" required />
+                  <label class="form-label" for="id_jurusan">Id Jurusan</label>
+                  <input type="text" name= "id_jurusan" id="id_jurusan" class="form-control form-control-lg" required />
                 </div>
 
                 <div class="form-outline mb-4">
-                  <label class="form-label" for="nama_agama">Nama Agama</label>
-                  <input type="text" name="nama_agama" id="nama_agama" class="form-control form-control-lg" required/>
+                  <label class="form-label" for="nama_jurusan">Nama Jurusan</label>
+                  <input type="text" name="nama_jurusan" id="nama_jurusan" class="form-control form-control-lg" required/>
                 </div>
+
+                <div class="form-outline">
+                <label class="col-form-label ">Jenjang</label>
+                  <select name= "id_jenjang" class="form-select form-control user mb-4" aria-label="Default select example">
+		              <option value="Id Jenjang"selected disabled>Pilih Jenjang</option>
+                            <?php
+                             $sql = mysqli_query($conn, "SELECT * FROM jenjang");
+                             while ($data = mysqli_fetch_assoc($sql)) {
+                            ?>
+					        <option value="<?= $data['id_jenjang'] ?>"><?= $data['nama_jenjang'] ?> </option>
+                            <?php
+                             }
+                             ?>
+                    </div>
+                </div> <br>
 
                 <div class="form-outline mb-4">
                   <label class="form-label" for="tgl_input">Tanggal Input</label>
-                  <input type="date" name="tgl_input" id="tgl_input" class="form-control form-control-lg" required/>
+                  <input type="date" name="tgl_input" id="tgl_input" class="form-control form-control-lg mb-2" required/>
                 </div>
 
                 <div class="form-outline mb-4">
@@ -105,7 +121,7 @@ if (isset($_POST['buat'])) {
               
               <div class="mb-4">
                 <select name= "id_user" class="form-select form-control user" aria-label="Default select example">
-		              <option value="Hak Akses."selected disabled>Hak Akses</option>
+		              <option value="Hak Ak/;."selected disabled>Hak Akses</option>
                             <?php
                              $sql = mysqli_query($conn, "SELECT * FROM user WHERE hak_akses = '$status' AND id_user='$_SESSION[id_user];'");
                             while ($data = mysqli_fetch_assoc($sql)) {

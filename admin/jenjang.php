@@ -1,105 +1,108 @@
-<?php
-include 'header.php';
-?>
-
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-1 text-gray-800">Other Utilities</h1>
-                    <p class="mb-4">Bootstrap's default utility classes can be found on the official <a
-                            href="https://getbootstrap.com/docs">Bootstrap Documentation</a> page. The custom utilities
-                        below were created to extend this theme past the default utility classes built into Bootstrap's
-                        framework.</p>
-
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <div class="col-lg-6">
-
-                            <!-- Overflow Hidden -->
-                            <div class="card mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Overflow Hidden Utilty</h6>
-                                </div>
-                                <div class="card-body">
-                                    Use <code>.o-hidden</code> to set the overflow property of any element to hidden.
-                                </div>
-                            </div>
-
-                            <!-- Progress Small -->
-                            <div class="card mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Progress Small Utility</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="mb-1 small">Normal Progress Bar</div>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar" role="progressbar" style="width: 75%"
-                                            aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <div class="mb-1 small">Small Progress Bar</div>
-                                    <div class="progress progress-sm mb-2">
-                                        <div class="progress-bar" role="progressbar" style="width: 75%"
-                                            aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    Use the <code>.progress-sm</code> class along with <code>.progress</code>
-                                </div>
-                            </div>
-
-                            <!-- Dropdown No Arrow -->
-                            <div class="card mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Dropdown - No Arrow</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="dropdown no-arrow mb-4">
-                                        <button class="btn btn-secondary dropdown-toggle" type="button"
-                                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            Dropdown (no arrow)
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                    Add the <code>.no-arrow</code> class alongside the <code>.dropdown</code>
-                                </div>
-                            </div>
-
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Data Pendaftaran</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        
+    </head>
+    <body class="sb-nav-fixed">
+        <!-- Navbar -->
+        <?php include 'header.php'; ?>
+        
+            <div id="layoutSidenav_content">
+                <!-- Start Body Content -->
+                <main>
+                    <!-- Body Content -->
+                    <div class="container">
+                        <h3 class="text-secondary display-6">Data Jenjang</h3>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Data Jenjang</li>
+                            </ol>
+                        </nav>
+                        
+                        
+                        <div class="col-2 mb-2">
+                        <a type="submit" href="tambah_data_jenjang.php" name="add_data" class="btn btn-success btn-block" >Tambah Data
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                         </div>
 
-                        <div class="col-lg-6">
+                        <table id="example" class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                                <tr>   
+                                    <th scope="col">No</th>
+                                    <th scope="col">Nama Jenjang</th>
+                                    <th scope="col">Tanggal Input</th>
+                                    <th scope="col">User Input</th>
+                                    <th scope="col">Tanggal Update</th>
+                                    <th scope="col">User Update</th>
+                                    <th scope="col">Akses</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    include 'koneksi.php';
+                                    $no = 1;
+                                    $query = "SELECT *
+                                    FROM jenjang";
+                                    $sql = mysqli_query($conn, $query);
+                                    
+                                    while ($data = mysqli_fetch_assoc($sql)) {
+                                ?>
+                                    <tr>
+                                        <td><?= $no++; ?></td>
+                                        <td><?= $data['nama_jenjang']; ?></td>
+                                        <td><?= $data['tgl_input']; ?></td>
+                                        <td><?= $data['user_input']; ?></td>
+                                        <td><?= $data['tgl_update']; ?></td>
+                                        <td><?= $data['user_update']; ?></td>
+                                        
+                                        <td>
+                                            <a class="btn btn-warning btn-sm" type="button"
+                                             href="edit_jenjang.php?id_jenjang=<?= $data['id_jenjang']  ?>"><i class="fa-solid fa-pen-to-square"></i></a>
 
-                            <!-- Roitation Utilities -->
-                            <div class="card">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Rotation Utilities</h6>
-                                </div>
-                                <div class="card-body text-center">
-                                    <div class="bg-primary text-white p-3 rotate-15 d-inline-block my-4">.rotate-15
-                                    </div>
-                                    <hr>
-                                    <div class="bg-primary text-white p-3 rotate-n-15 d-inline-block my-4">.rotate-n-15
-                                    </div>
-                                </div>
-                            </div>
+                                            <a class="btn btn-danger btn-sm" type="button"
+                                             onclick="return confirm('Data akan di Hapus?')" href="hapus_jenjang.php?id_jenjang=<?= $data['id_jenjang']; 
+                                             ?>"><i class="fa-solid fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                <?php
+                                    }
+                                ?>
 
-                        </div>
-
+                            </tbody>
+                        </table>
+                        <script>
+                            $(document).ready(function() {
+                                new DataTable('#example');
+                            } )
+                        </script>
                     </div>
-
-                </div>
-                <!-- /.container-fluid -->
-
+                </main>
+                <!-- End Body Content -->
+            <?php include 'footer.php'; ?>
             </div>
-            <!-- End of Main Content -->
-
-            <?php
-            include 'footer.php';
-            ?>
-</body>
-
+        </div>
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="assets/demo/chart-area-demo.js"></script>
+        <script src="assets/demo/chart-bar-demo.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        <script src="js/datatables-simple-demo.js"></script>
+    
+    </body>
 </html>

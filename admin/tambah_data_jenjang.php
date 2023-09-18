@@ -2,44 +2,43 @@
 
 include "koneksi.php";
 
-if (isset($_POST['buat'])) {
-    $id_agama = htmlspecialchars($_POST['id_agama']);
-    $nama_agama = htmlspecialchars($_POST['nama_agama']);
-    $tgl_input = htmlspecialchars($_POST['tgl_input']);
-    $user_input = htmlspecialchars($_POST['user_input']);
-    $id_user = htmlspecialchars($_POST['id_user']);
-    
-  //cek id agama
-  $result = mysqli_query($conn, "SELECT id_agama FROM agama WHERE id_agama = '$id_agama'");
+if (isset($_POST['simpan'])) {
+  $id_jenjang = htmlspecialchars($_POST['id_jenjang']);
+  $nama_jenjang = htmlspecialchars($_POST['nama_jenjang']);
+  $tgl_input = htmlspecialchars($_POST['tgl_input']);
+  $user_input = htmlspecialchars($_POST['user_input']);
+  //cek id sudah terdaftar belum
+  $result = mysqli_query($conn, "SELECT id_jenjang FROM jenjang WHERE id_jenjang = '$id_jenjang'");
   if (mysqli_fetch_assoc($result)) {
       echo "
       <script>
-          alert('Username sudah terdaftar, silahkan ganti!!');
-          document.location.href='tambah_data_agama.php';
-          </script>";
+          alert('ID sudah terdaftar, silahkan ganti!');
+          document.location.href='jenjang.php';
+      </script>
+      ";
       return false;
   }
 
+  mysqli_query($conn, "INSERT INTO jenjang VALUES('$id_jenjang','$nama_jenjang','$tgl_input','$user_input','','')");
 
-  //simpan data ke database
-  mysqli_query($conn, "INSERT INTO agama VALUES('$id_agama','$nama_agama','$tgl_input','$user_input','','','$id_user')");
-  
+  // var_dump($cek);
+  // exit();
+
   if (mysqli_affected_rows($conn) > 0) {
-    echo "
-    <script>
-        alert('Data Agama Berhasil dibuat');
-        document.location.href='agama.php';
-    </script>
-    ";
-} else {
-    echo "
-    <script>
-        alert('Data Agama Gagal dibuat');
-        document.location.href='tambah_data_agama.php';
-    </script>
-    ";
-}
-  
+      echo "
+      <script>
+          alert('Data Jenjang Berhasil dibuat');
+          document.location.href='jenjang.php';
+      </script>
+      ";
+  } else {
+      echo "
+      <script>
+          alert('Data Jenjang Gagal dibuat');
+          document.location.href='form-jenjang.php';
+      </script>
+      ";
+  }
 }
 
 ?>
@@ -82,14 +81,14 @@ if (isset($_POST['buat'])) {
 
               <form class="user" method = "post" action = "">
 
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="id_agama">Id Agama</label>
-                  <input type="text" name= "id_agama" id="id_agama" class="form-control form-control-lg" required />
+              <div class="form-outline mb-4">
+                  <label class="form-label" for="id_jenjang">Id Jenjang</label>
+                  <input type="text" name="id_jenjang" id="id_jenjang" class="form-control form-control-lg" required/>
                 </div>
 
                 <div class="form-outline mb-4">
-                  <label class="form-label" for="nama_agama">Nama Agama</label>
-                  <input type="text" name="nama_agama" id="nama_agama" class="form-control form-control-lg" required/>
+                  <label class="form-label" for="nama_jenjang">Nama Jenjang</label>
+                  <input type="text" name="nama_jenjang" id="nama_jenjang" class="form-control form-control-lg" required/>
                 </div>
 
                 <div class="form-outline mb-4">
@@ -102,24 +101,9 @@ if (isset($_POST['buat'])) {
                   <input type="text" name="user_input" id="user_input" class="form-control form-control-lg" required/>
                 </div>
 
-              
-              <div class="mb-4">
-                <select name= "id_user" class="form-select form-control user" aria-label="Default select example">
-		              <option value="Hak Akses."selected disabled>Hak Akses</option>
-                            <?php
-                             $sql = mysqli_query($conn, "SELECT * FROM user WHERE hak_akses = '$status' AND id_user='$_SESSION[id_user];'");
-                            while ($data = mysqli_fetch_assoc($sql)) {
-                            ?>
-					        <option value="<?= $data['id_user'] ?>"><?= $data['hak_akses'] ?> (<?= $data['nama'] ?>)</option>
-                            <?php
-                             }
-                             ?>
-              </select>
-              </div>
-
             <div class="row mb-3"> 
               <div class="col-6">
-                <button type="submit" name="buat" class="btn btn-success btn-block w-100">Register</button>
+                <button type="submit" name="simpan" class="btn btn-success btn-block w-100">Register</button>
               </div>
               <div class="col-6">
                <button type="reset"name="reset" class="btn btn-danger btn-block w-100">Reset</button>
