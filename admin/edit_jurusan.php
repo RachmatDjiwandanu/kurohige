@@ -3,40 +3,43 @@
 include 'koneksi.php';
 
 if (isset($_POST['simpan'])) {
-  $id_jenjang = htmlspecialchars($_POST['id_jenjang']);
-  $nama_jenjang = htmlspecialchars($_POST['nama_jenjang']);
+  $id_jurusan = htmlspecialchars($_POST['id_jurusan']);
+  $nama_jurusan = htmlspecialchars($_POST['nama_jurusan']);
   $tgl_update = date('Y-m-d');
   $user_update = htmlspecialchars($_POST['user_update']);
-
-  $query = "UPDATE jenjang SET
-            id_jenjang='$id_jenjang',
-            nama_jenjang='$nama_jenjang',
-            tgl_update='$tgl_update',
-            user_update='$user_update'
-            WHERE id_jenjang='$id_jenjang'
-            ";
+  $id_user = htmlspecialchars($_POST['id_user']);
+  $query = "UPDATE jurusan SET
+          id_jurusan='$id_jurusan',
+          nama_jurusan='$nama_jurusan',
+          tgl_update='$tgl_update',
+          user_update='$user_update',
+          id_user='$id_user'
+          WHERE id_jurusan='$id_jurusan'
+          ";
     //  var_dump($query);
     // exit();
     mysqli_query($conn, $query);
     if (mysqli_affected_rows($conn) > 0) {
         echo "
             <script>
-                alert('Data Agama Berhasil DiUpdate');
-                document.location.href='jenjang.php';
+                alert('Data Jurusan Berhasil DiUpdate');
+                document.location.href='jurusan.php';
             </script>
             ";
     } else {
         echo "
             <script>
-                alert('Data Agama Gagal Update');
-                document.location.href='jenjang.php';
+                alert('Data Jurusan Gagal Update');
+                document.location.href='jurusan.php';
             </script>
             ";
     }
 }
 
 $data = mysqli_query($conn, "SELECT *
-FROM jenjang WHERE id_jenjang='" . $_GET['id_jenjang'] . "'");
+FROM jurusan
+LEFT JOIN user
+ON jurusan.id_user = user.id_user LEFT JOIN jenjang ON jurusan.id_jenjang = jenjang.id_jenjang WHERE id_jurusan='" . $_GET['id_jurusan'] . "'");
 $edit = mysqli_fetch_assoc($data);
 ?>
 
@@ -80,20 +83,48 @@ $edit = mysqli_fetch_assoc($data);
                                 <div class="row">
 
                                 <div class="form-outline mb-3 col-12">
-                                <label class="mx-2" for="id_jenjang">Id Jenjang</label>
-                                <input type="text" name="id_jenjang" id="id_jenjang" class="form-control " value="<?= $edit['id_jenjang']; ?>"readonly>   
+                                <label class="mx-2" for="id_jurusan">Id Jurusan</label>
+                                <input type="text" name="id_jurusan" id="id_jurusan" class="form-control " value="<?= $edit['id_jurusan']; ?>"readonly  >   
                                     </div>
                                     <div class="form-outline mb-3 col-12">
-                                    <label class="mx-2" for="nm">Nama Jenjang</label>
-                                    <input type="text" name="nama_jenjang" class="form-control" id="nm" value="<?= $edit['nama_jenjang'] ?>">    
+                                    <label class="mx-2" for="nm">Nama Jurusan</label>
+                                    <input type="text" name="nama_jurusan" class="form-control" id="nm" value="<?= $edit['nama_jurusan'] ?>">    
                                     </div>
 
+                                    <div class="form-outline mb-3 col-12">
+                                    <label class="mx-2" for="nm">Kelas</label>
+                                    <select class="form-control" name="id_jenjang" id="id_jenjang">
+                                    <option value="<?= $edit['id_jenjang'] ?>"><?= $edit['nama_jenjang'] ?></option>
+                                    <?php
+                                    $sql = mysqli_query($conn, "SELECT * FROM jenjang");
+                                    while ($data = mysqli_fetch_assoc($sql)) {
+                                    ?>
+                                        <option value="<?= $data['id_jenjang'] ?>"><?= $data['nama_jenjang'] ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                                    </div>
+                                    
                                     <div class="form-outline mb-3 col-12">
                                     <label class="mx-2" for="user_update">User Update</label>
                                     <input type="text" name="user_update" class="form-control" id="nm" value="<?= $edit['user_update'] ?>">    
                                     </div>
-        
+                                    
+                                    <div class="form-outline mb-3 col-12">
+                                        <select name="id_user" class="form-select form-control user" aria-label="Default select example">
+                                        <option value="<?= $edit['id_user'] ?>"><?= $edit['hak_akses'] ?> (<?= $edit['nama'] ?>)</option>
+                                    <?php
+                                    $sql = mysqli_query($conn, "SELECT * FROM user WHERE hak_akses = '$status' AND id_user='$_SESSION[id_user];'");
+                                    while ($data = mysqli_fetch_assoc($sql)) {
+                                    ?>
+                                        <option value="<?= $data['id_user'] ?>"><?= $data['hak_akses'] ?> (<?= $data['nama'] ?>)</option>
+                                    <?php
+                                    }
+                                    ?>
+                                        </select>
                                     </div>
+                                    
                                     <div class="col-12">
                                         <input class="btn btn-success btn-block w-100" type="submit" name="simpan" value="Simpan">
                                    

@@ -28,14 +28,14 @@ if (isset($_POST['buat'])) {
   if (mysqli_affected_rows($conn) > 0) {
     echo "
     <script>
-        alert('Data Agama Berhasil dibuat');
+        alert('Data Jurusan Berhasil dibuat');
         document.location.href='jurusan.php';
     </script>
     ";
 } else {
     echo "
     <script>
-        alert('Data Agama Gagal dibuat');
+        alert('Data Jurusan Gagal dibuat');
         document.location.href='tambah_data_jurusan.php';
     </script>
     ";
