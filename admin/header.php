@@ -120,7 +120,7 @@ if (!isset($_SESSION['login']) ) {
             <li class="nav-item">
                 <a class="nav-link" href="data_user.php">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Data Pendaftaran</span></a>
+                    <span>Data User</span></a>
             </li>
             
             <!-- Divider -->

@@ -1,6 +1,15 @@
 <?php include 'header.php';
 
 include 'koneksi.php';
+if ($_SESSION['hak_akses'] != 'admin') {
+  echo "
+  <script>
+      alert('Tidak Memiliki Akses, DILARANG MASUK!');
+      document.location.href='index.php';
+  </script>
+
+  ";
+}
 
 if (isset($_POST['simpan'])) {
   $id_agama = htmlspecialchars($_POST['id_agama']);
@@ -41,6 +50,7 @@ FROM agama
 LEFT JOIN user
 ON agama.id_user = user.id_user WHERE id_agama='" . $_GET['id_agama'] . "'");
 $edit = mysqli_fetch_assoc($data);
+
 ?>
 
 <!DOCTYPE html>

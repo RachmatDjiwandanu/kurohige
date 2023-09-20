@@ -2,6 +2,16 @@
 
 include "koneksi.php";
 
+if ($_SESSION['hak_akses'] != 'admin') {
+  echo "
+  <script>
+      alert('Tidak Memiliki Akses, DILARANG MASUK!');
+      document.location.href='index.php';
+  </script>
+
+  ";
+}
+
 if (isset($_POST['buat'])) {
     $id_agama = htmlspecialchars($_POST['id_agama']);
     $nama_agama = htmlspecialchars($_POST['nama_agama']);

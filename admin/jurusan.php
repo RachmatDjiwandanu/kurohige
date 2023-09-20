@@ -16,19 +16,31 @@
         
     </head>
     <body class="sb-nav-fixed">
-        <!-- Navbar -->
-        <?php include 'header.php'; ?>
+        <!-- AKSES -->
+        <?php include 'header.php'; 
+
+        if ($_SESSION['hak_akses'] != 'admin') {
+            echo "
+            <script>
+                alert('Tidak Memiliki Akses, DILARANG MASUK!');
+                document.location.href='index.php';
+            </script>
+          
+            ";
+          }
+        ?>
+        <!-- STOP -->
         
             <div id="layoutSidenav_content">
                 <!-- Start Body Content -->
                 <main>
                     <!-- Body Content -->
                     <div class="container">
-                        <h3 class="text-secondary display-6">Data Kewarganegaraan</h3>
+                        <h3 class="text-secondary display-6">Data Jurusan</h3>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Data Kewarganegaraan</li>
+                                <li class="breadcrumb-item active" aria-current="page">Data Jurusan</li>
                             </ol>
                         </nav>
                         
@@ -53,23 +65,25 @@
                             </thead>
                             <tbody>
                                 <?php
-                                    include 'koneksi.php';
-                                    $no = 1;
-                                    $query = "SELECT *
-                                    FROM jurusan 
-                                    INNER JOIN user
-                                    ON jurusan.id_user = user.id_user";
-                                    $sql = mysqli_query($conn, $query);
-                                    while ($data = mysqli_fetch_assoc($sql)) {
+                                   
+                                        include 'koneksi.php';
+                                        $no = 1;
+                                        $query = "SELECT id_jurusan, CONCAT(jenjang.nama_jenjang,' ',jurusan.nama_jurusan) as kelas, jurusan.tgl_input,jurusan.user_input,jurusan.tgl_update,jurusan.user_update,CONCAT(user.hak_akses,' (',user.nama,')') as akses
+                                        FROM jurusan
+                                        LEFT JOIN jenjang
+                                        ON jurusan.id_jenjang = jenjang.id_jenjang LEFT JOIN user ON jurusan.id_user = user.id_user";
+                                        $sql = mysqli_query($conn, $query);
+                                        while ($data = mysqli_fetch_assoc($sql)) {
+                                        
                                 ?>
                                     <tr>
                                         <td><?= $no++; ?></td>
-                                        <td><?= $data['nama_jurusan']; ?></td>
+                                        <td><?= $data['kelas']; ?></td>
                                         <td><?= $data['tgl_input']; ?></td>
                                         <td><?= $data['user_input']; ?></td>
                                         <td><?= $data['tgl_update']; ?></td>
                                         <td><?= $data['user_update']; ?></td>
-                                        <td><?= $data['hak_akses']; ?> (<?= $data['nama']; ?>)</td>
+                                        <td><?= $data['akses']; ?></td>
                                         <td>
 
                                             <a class="btn btn-warning btn-sm" type="button"

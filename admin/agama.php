@@ -17,7 +17,16 @@
     </head>
     <body class="sb-nav-fixed">
         <!-- Navbar -->
-        <?php include 'header.php'; ?>
+        <?php include 'header.php'; 
+        if ($_SESSION['hak_akses'] != 'admin') {
+            echo "
+            <script>
+                alert('Tidak Memiliki Akses, DILARANG MASUK!');
+                document.location.href='index.php';
+            </script>
+            ";
+        }
+        ?>
         
             <div id="layoutSidenav_content">
                 <!-- Start Body Content -->

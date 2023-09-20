@@ -2,6 +2,16 @@
 
 include "koneksi.php";
 
+if ($_SESSION['hak_akses'] != 'admin') {
+  echo "
+  <script>
+      alert('Tidak Memiliki Akses, DILARANG MASUK!');
+      document.location.href='index.php';
+  </script>
+
+  ";
+}
+
 if (isset($_POST['buat'])) {
     $id_jurusan = htmlspecialchars($_POST['id_jurusan']);
     $nama_jurusan = htmlspecialchars($_POST['nama_jurusan']);
@@ -10,7 +20,7 @@ if (isset($_POST['buat'])) {
     $user_input = htmlspecialchars($_POST['user_input']);
     $id_user = htmlspecialchars($_POST['id_user']);
     
-  //cek id agama
+  //cek id Jurusan
   $result = mysqli_query($conn, "SELECT id_jurusan FROM jurusan WHERE id_jurusan = '$id_jurusan'");
   if (mysqli_fetch_assoc($result)) {
       echo "

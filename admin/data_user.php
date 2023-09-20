@@ -24,11 +24,11 @@
                 <main>
                     <!-- Body Content -->
                     <div class="container">
-                        <h3 class="text-secondary display-6">Data Pendaftaran</h3>
+                        <h3 class="text-secondary display-6">Data User</h3>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Data Pendaftaran</li>
+                                <li class="breadcrumb-item active" aria-current="page">Data User</li>
                             </ol>
                         </nav>
                         
