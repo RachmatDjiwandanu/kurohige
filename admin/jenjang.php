@@ -51,13 +51,14 @@
                         <table id="example" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>   
-                                    <th scope="col">No</th>
-                                    <th scope="col">Nama Jenjang</th>
-                                    <th scope="col">Tanggal Input</th>
-                                    <th scope="col">User Input</th>
-                                    <th scope="col">Tanggal Update</th>
-                                    <th scope="col">User Update</th>
-                                    <th scope="col">Akses</th>
+                                    <td scope="col">No</td>
+                                    <td scope="col">Nama Jenjang</td>
+                                    <td scope="col">Tanggal Input</td>
+                                    <td scope="col">User Input</td>
+                                    <td scope="col">Tanggal Update</td>
+                                    <td scope="col">Detail</td>
+                                    <td scope="col">User Update</td>
+                                    <td scope="col">Akses</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -77,7 +78,6 @@
                                         <td><?= $data['user_input']; ?></td>
                                         <td><?= $data['tgl_update']; ?></td>
                                         <td><?= $data['user_update']; ?></td>
-                                        
                                         <td>
                                             <a class="btn btn-warning btn-sm" type="button"
                                              href="edit_jenjang.php?id_jenjang=<?= $data['id_jenjang']  ?>"><i class="fa-solid fa-pen-to-square"></i></a>
@@ -99,7 +99,13 @@
                             } )
                         </script>
                     </div>
-                </main>
+   
+        
+      </div>
+    </div>
+  </div>
+</div>
+</main>
                 <!-- End Body Content -->
             <?php include 'footer.php'; ?>
             </div>

@@ -111,9 +111,9 @@ if (!isset($_SESSION['login']) ) {
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="pendaftaran.php">
+                <a class="nav-link" href="form_pendaftaran.php">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Pendaftaran</span></a>
+                    <span>Data Pendaftaran</span></a>
             </li>
 
             <!-- Nav Item - Data User -->
